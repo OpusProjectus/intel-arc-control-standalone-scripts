@@ -32,60 +32,11 @@ My scripts aim to provide a cleaner, less intrusive way to launch and use Arc Co
 ## Prerequisites
 
 To use these scripts, you **must already possess a specific version of the Intel Arc Graphics driver** that included Intel Arc Control. This typically means drivers released between roughly **2024 and mid-2025**.
-If you've had previous installations of intel gfx drivers containing the IntelArcControl.exe (not the IntelArcControl.msi), you can find it using Explorer and check the version by lookingin:
- C:\ProgramData\Package Cache 
 
-Search for Intel*.exe and check what version it is by right-clicking the file and clicking: Copy as path
-Run a PowerShell terminal (I have not tested this with PowerShell below 7.*, I recommend you update yours, by store or Microsoft Update):
+If you've had previous installations of Intel graphics drivers containing `IntelArcControl.exe` (not the `IntelArcControl.msi`), you can often find it by checking:
+`C:\ProgramData\Package Cache`
 
-  PowerShell> (Get-Item 'C:\ProgramData\Package Cache\{Unique-Identifier-Serial}\IntelArcControl.exe').VersionInfo.FileVersion
-  > 1.80.5684.2
+You'll need to browse through the subfolders within `Package Cache` to find the specific driver version. To check its version, open a PowerShell terminal (PowerShell 7.* or later is recommended for best compatibility) and use the following command, replacing `{Unique-Identifier-Serial}` with the actual folder name:
 
-The script provided might work with other versions, though this is the latest version and one I've successfully used. 
-
-**I do not recommend downloading software from unauthorized third-party sources**, as this carries significant risks. Please ensure you have obtained your driver files legally.
-
-## Getting Started
-
-This section provides a quick overview of how to set up, run, and uninstall Intel Arc Control as a standalone application using the provided PowerShell script.
-For detailed, step-by-step instructions on locating and preparing the necessary files, please refer to the dedicated [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) file.
-
-### Installation
-
-The main installation and setup is handled by the `Install-IntelArcControl.ps1` PowerShell script.
-
-1.  **Prepare your files:** Follow the instructions in [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md) to locate and copy the required `IntelArcControl.exe` and its dependencies into your chosen standalone folder (e.g., `C:\ArcControlStandalone`).
-2.  **Download the script:** Download the `Install-IntelArcControl.ps1` script from the `scripts` folder in this repository and place it in the same standalone folder.
-3.  **Execute the script:**
-    * Open **PowerShell as Administrator**. You can do this by searching for "PowerShell" in the Start Menu, right-clicking, and selecting "Run as administrator."
-    * Navigate to your standalone folder (e.g., `cd C:\ArcControlStandalone`).
-    * Run the installation script:
-        ```powershell
-        .\Install-IntelArcControl.ps1
-        ```
-    * The script will guide you through the installation process, including asking for confirmation and creating necessary shortcuts.
-
-### Running Intel Arc Control
-
-Once the `Install-IntelArcControl.ps1` script has completed, it will have created a shortcut for Intel Arc Control in your Start Menu.
-
-* You can now launch **Intel Arc Control** directly from your Start Menu.
-
-### Uninstalling Intel Arc Control Standalone
-
-The `Install-IntelArcControl.ps1` script also creates a dedicated uninstallation script and a shortcut for it in your Start Menu.
-
-* To uninstall, simply find and run the **"Intel Arc Control Uninstall"** shortcut in your Start Menu.
-* Alternatively, you can manually run the `Uninstall-IntelArcControl.bat` file that was created in your `C:\Program Files\Intel\Intel Arc Control` (or your chosen `InstallPath`) folder.
-
-## Alternative Solutions
-
-I understand that Intel Arc Control might not be for everyone, or that users might prefer other tools. I will also explore and potentially include information on alternative methods or software that can provide similar functionality, such as using features within **Microsoft Game Bar** or other third-party utilities for graphics configuration.
-
-## Contributing
-
-This project is currently maintained by me. If you have suggestions or improvements for the scripts, feel free to open an issue or pull request.
-
-## License
-
-This project's scripts are licensed under the MIT License. See the `LICENSE` file for details.
+```powershell
+(Get-Item 'C:\ProgramData\Package Cache\{Unique-Identifier-Serial}\IntelArcControl.exe').VersionInfo.FileVersion
